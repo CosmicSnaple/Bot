@@ -2,7 +2,7 @@ name: Daily Twisted
 
 on:
   schedule:
-    - cron: "10 19 * * *"   # 7:10 PM CST
+    - cron: "10 19 * * *"
   workflow_dispatch:
 
 jobs:
@@ -13,11 +13,18 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Install Luvit (correct tarball extraction)
+      - name: Download latest Luvit release (auto-detect)
         run: |
-          curl -L https://github.com/luvit/luvit/releases/download/2.18.1/luvit-2.18.1-linux64.tar.gz -o luvit.tar.gz
+          ASSET_URL=$(curl -s https://api.github.com/repos/luvit/luvit/releases/latest \
+            | grep browser_download_url \
+            | grep linux \
+            | cut -d '"' -f 4)
+
+          echo "Downloading: $ASSET_URL"
+          curl -L "$ASSET_URL" -o luvit.tar.gz
+
           tar -xzf luvit.tar.gz
-          mv luvit-2.18.1-linux64/luvit ./luvit
+          mv luvit*/luvit ./luvit
           chmod +x luvit
 
       - name: Run Daily Twisted bot
