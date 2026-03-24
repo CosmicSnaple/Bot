@@ -20,4 +20,4 @@ jobs:
 
       - name: Run Daily Twisted bot
         run: |
-          ./luvit DailyTwistedBot.lua send
+          ./luvit TwistedBot.lua send
