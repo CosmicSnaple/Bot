@@ -13,9 +13,9 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Install Luvit (prebuilt binaries)
+      - name: Install Luvit (correct binary)
         run: |
-          curl -L https://github.com/luvit/luvit/releases/download/2.18.1/luvit-2.18.1-linux64 -o luvit
+          curl -L https://github.com/luvit/luvit/releases/download/2.18.1/luvit -o luvit
           chmod +x luvit
 
       - name: Run Daily Twisted bot
