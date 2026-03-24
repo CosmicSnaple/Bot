@@ -1,0 +1,23 @@
+name: Daily Twisted
+
+on:
+  schedule:
+    - cron: "10 19 * * *"   # 7:10 PM CST
+  workflow_dispatch:
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Install Luvit
+        run: |
+          curl -L https://github.com/luvit/lit/raw/master/get-lit.sh | sh
+          ./lit make
+
+      - name: Run Daily Twisted bot
+        run: |
+          ./luvit DailyTwistedBot.lua send
