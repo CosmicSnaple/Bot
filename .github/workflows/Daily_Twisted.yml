@@ -1,0 +1,33 @@
+name: Daily Twisted
+
+on:
+  schedule:
+    - cron: "10 19 * * *"   # 7:10 PM CST
+  workflow_dispatch:
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install Luvit (stable method with folder auto-detect)
+        run: |
+          curl -L https://github.com/luvit/luvi/releases/download/v2.14.0/luvi-regular-Linux_x86_64 -o luvi
+          chmod +x luvi
+
+          curl -L https://github.com/luvit/lit/archive/refs/tags/3.8.5.tar.gz -o lit.tar.gz
+          tar -xzf lit.tar.gz
+
+          # Find the extracted folder (GitHub sometimes renames it)
+          LIT_DIR=$(find . -maxdepth 1 -type d -name "lit-3.8.5*")
+          echo "Detected lit folder: $LIT_DIR"
+
+          ./luvi "$LIT_DIR/main.lua" make lit
+          ./lit make
+
+      - name: Run Daily Twisted bot
+        run: |
+          ./luvit DailyTwistedBot.lua send
