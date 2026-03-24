@@ -13,19 +13,10 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Download latest Luvit release (auto-detect)
+      - name: Install Luvit (official installer)
         run: |
-          ASSET_URL=$(curl -s https://api.github.com/repos/luvit/luvit/releases/latest \
-            | grep browser_download_url \
-            | grep linux \
-            | cut -d '"' -f 4)
-
-          echo "Downloading: $ASSET_URL"
-          curl -L "$ASSET_URL" -o luvit.tar.gz
-
-          tar -xzf luvit.tar.gz
-          mv luvit*/luvit ./luvit
-          chmod +x luvit
+          curl -L https://github.com/luvit/lit/raw/master/get-lit.sh | sh
+          ./lit make luvit
 
       - name: Run Daily Twisted bot
         run: |
