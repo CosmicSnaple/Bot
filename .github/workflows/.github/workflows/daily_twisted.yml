@@ -11,11 +11,15 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Install Luvit
+      - name: Install Luvit (stable method)
         run: |
-          curl -L https://github.com/luvit/lit/raw/master/get-lit.sh | sh
+          curl -L https://github.com/luvit/luvi/releases/download/v2.14.0/luvi-regular-Linux_x86_64 -o luvi
+          chmod +x luvi
+          curl -L https://github.com/luvit/lit/archive/refs/tags/3.8.5.tar.gz -o lit.tar.gz
+          tar -xzf lit.tar.gz
+          ./luvi lit-3.8.5/main.lua make lit
           ./lit make
 
       - name: Run Daily Twisted bot
