@@ -21,7 +21,7 @@ jobs:
 
       - name: Restore bot code
         run: |
-          echo "${{ secrets.BOT_CODE }}" > TwistedBot.lua
+          echo "${{ secrets.BOT_CODE_B64 }}" | base64 --decode > TwistedBot.lua
 
       - name: Run Daily Twisted bot
         run: |
