@@ -2,7 +2,7 @@ name: Daily Twisted
 
 on:
   schedule:
-    - cron: "37 21 * * *"
+    - cron: "42 21 * * *"
       timezone: 'America/Chicago'
   workflow_dispatch:
 
