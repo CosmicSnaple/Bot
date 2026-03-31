@@ -4,7 +4,6 @@ on:
   schedule:
     - cron: "10 19 * * *"
       timezone: 'America/Chicago'
-      
   workflow_dispatch:
 
 jobs:
@@ -19,6 +18,11 @@ jobs:
         run: |
           curl -L https://github.com/luvit/lit/raw/master/get-lit.sh | sh
           ./lit make luvit
+
+      - name: Decrypt bot code
+        run: |
+          openssl aes-256-cbc -d -pbkdf2 -in TwistedBot.lua.enc -out TwistedBot.lua -pass pass:"${{ secrets.BOT_KEY }}"
+
       - name: Run Daily Twisted bot
         run: |
           ./luvit TwistedBot.lua send
