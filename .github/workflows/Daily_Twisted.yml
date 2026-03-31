@@ -1,6 +1,6 @@
-- name: Schedule Workflow
+name: Schedule Workflow
 
-  uses: austenstone/schedule@v1.3
+uses: austenstone/schedule@v1.3
   
 on:
   schedule:
