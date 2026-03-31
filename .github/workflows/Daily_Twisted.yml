@@ -1,5 +1,7 @@
-name: Daily Twisted
+- name: Schedule Workflow
 
+  uses: austenstone/schedule@v1.3
+  
 on:
   schedule:
     - cron: "58-59 21 * * *"
