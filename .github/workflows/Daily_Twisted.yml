@@ -1,10 +1,8 @@
-name: Schedule Workflow
+name: Daily Twisted
 
-uses: austenstone/schedule@v1.3
-  
 on:
   schedule:
-    - cron: "58-59 21 * * *"
+    - cron: "42 21 * * *"
       timezone: 'America/Chicago'
   workflow_dispatch:
 
