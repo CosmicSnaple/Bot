@@ -1,8 +1,7 @@
 name: Daily Twisted
 
 on:
-  repository_dispatch:
-   
+  repository_dispatch:   
   workflow_dispatch:
 
 jobs:
