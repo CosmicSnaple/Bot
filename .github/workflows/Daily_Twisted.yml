@@ -24,8 +24,10 @@ jobs:
           make regular
           cd ..
 
-          ./luvi/build/luvi-regular lit/make.lua make luvit
-          chmod +x luvit
+      - name: Debug luvi build output
+        run: |
+          echo "Listing luvi/build directory:"
+          ls -R luvi/build
 
       - name: Decrypt bot code
         run: |
@@ -33,4 +35,4 @@ jobs:
 
       - name: Run Daily Twisted bot
         run: |
-          ./luvit TwistedBot.lua send
+          echo "We will update this once we know the luvi filename"
