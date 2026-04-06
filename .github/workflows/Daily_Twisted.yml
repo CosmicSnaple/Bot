@@ -18,27 +18,27 @@ jobs:
       - name: Install Luvit (CI-safe)
         run: |
           git clone https://github.com/luvit/luvi.git
-          git clone https://github.com/luvit/lit.git
 
           cd luvi
-          make regular      # <-- REQUIRED for your version
-          make              # <-- builds the actual luvi binary
+          make regular
+          make
           cd ..
+
+      - name: Download lit (official)
+        run: |
+          curl -L https://github.com/luvit/lit/raw/master/lit.lua -o lit.lua
 
       - name: Debug luvi build output
         run: |
           echo "=== TOP LEVEL ==="
           ls -l luvi/build
-          echo "=== RECURSIVE ==="
-          ls -R luvi/build
 
       - name: Build Luvit
         run: |
-          # Automatically detect the luvi executable
           LUVI_PATH=$(find luvi/build -maxdepth 2 -type f -perm -111 | head -n 1)
           echo "Using luvi executable: $LUVI_PATH"
 
-          $LUVI_PATH lit/make.lua make luvit
+          $LUVI_PATH lit.lua make luvit
           chmod +x luvit
 
       - name: Decrypt bot code
@@ -49,5 +49,6 @@ jobs:
             -pass pass:"${{ secrets.BOT_KEY }}"
 
       - name: Run Daily Twisted bot
+        timeout-minutes: 10
         run: |
           ./luvit TwistedBot.lua send
