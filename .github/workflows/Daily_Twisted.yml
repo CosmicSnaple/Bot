@@ -24,7 +24,7 @@ jobs:
           make regular
           cd ..
 
-          ./luvi/build/luvi lit/make.lua make luvit
+          ./luvi/build/luvi-regular lit/make.lua make luvit
           chmod +x luvit
 
       - name: Decrypt bot code
