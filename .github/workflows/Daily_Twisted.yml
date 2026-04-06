@@ -1,8 +1,11 @@
 name: Daily_Twisted
 
 on:
-  repository_dispatch:   
+  repository_dispatch:
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   run-bot:
@@ -12,10 +15,11 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Install Luvit (official installer)
+      - name: Download Luvit (prebuilt)
         run: |
-          curl -L https://github.com/luvit/lit/raw/master/get-lit.sh | sh
-          ./lit make luvit
+          curl -L https://github.com/luvit/luvit/releases/download/2.21.0/luvit-2.21.0-linux_x86_64.tar.gz -o luvit.tar.gz
+          tar -xzf luvit.tar.gz
+          chmod +x luvit
 
       - name: Decrypt bot code
         run: |
