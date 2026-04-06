@@ -21,7 +21,8 @@ jobs:
           git clone https://github.com/luvit/lit.git
 
           cd luvi
-          make        # <-- correct target for this version
+          make regular      # <-- REQUIRED for your version
+          make              # <-- builds the actual luvi binary
           cd ..
 
       - name: Debug luvi build output
@@ -33,7 +34,7 @@ jobs:
 
       - name: Build Luvit
         run: |
-          # Find the luvi executable dynamically
+          # Automatically detect the luvi executable
           LUVI_PATH=$(find luvi/build -maxdepth 2 -type f -perm -111 | head -n 1)
           echo "Using luvi executable: $LUVI_PATH"
 
