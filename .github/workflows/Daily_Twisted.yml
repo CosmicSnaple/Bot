@@ -17,8 +17,7 @@ jobs:
 
       - name: Download Luvit (prebuilt)
         run: |
-          curl -L https://github.com/luvit/luvit/releases/download/2.21.0/luvit-2.21.0-linux_x86_64.tar.gz -o luvit.tar.gz
-          tar -xzf luvit.tar.gz
+          curl -L https://github.com/luvit/luvit/releases/download/2.21.0/luvit-2.21.0-linux_x86_64 -o luvit
           chmod +x luvit
 
       - name: Decrypt bot code
