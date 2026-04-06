@@ -15,31 +15,20 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Download Luvit + Luvi + Lit (prebuilt)
+      - name: Install Luvit (official installer)
         run: |
-          curl -LJO https://github.com/luvit/luvit/releases/latest/download/luvit
-          curl -LJO https://github.com/luvit/luvi/releases/latest/download/luvi
-          curl -LJO https://github.com/luvit/lit/releases/latest/download/lit
+          curl -L https://github.com/luvit/lit/raw/master/get-lit.sh -o get-lit.sh
+          chmod +x get-lit.sh
+          ./get-lit.sh
 
-          chmod +x luvit || true
-          chmod +x luvi || true
-          chmod +x lit || true
+          # get-lit.sh installs:
+          #   ./luvit
+          #   ./luvi
+          #   ./lit
 
-      - name: Debug downloaded files
-        run: |
-          echo "=== FILE TYPES ==="
-          file luvit || true
-          file luvi || true
-          file lit || true
-
-          echo "=== FIRST 20 LINES OF LUVIT ==="
-          head -n 20 luvit || true
-
-          echo "=== FIRST 20 LINES OF LUVI ==="
-          head -n 20 luvi || true
-
-          echo "=== FIRST 20 LINES OF LIT ==="
-          head -n 20 lit || true
+          chmod +x luvit
+          chmod +x luvi
+          chmod +x lit
 
       - name: Decrypt bot code
         run: |
