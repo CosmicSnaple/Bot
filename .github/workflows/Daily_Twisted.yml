@@ -21,9 +21,25 @@ jobs:
           curl -LJO https://github.com/luvit/luvi/releases/latest/download/luvi
           curl -LJO https://github.com/luvit/lit/releases/latest/download/lit
 
-          chmod +x luvit
-          chmod +x luvi
-          chmod +x lit
+          chmod +x luvit || true
+          chmod +x luvi || true
+          chmod +x lit || true
+
+      - name: Debug downloaded files
+        run: |
+          echo "=== FILE TYPES ==="
+          file luvit || true
+          file luvi || true
+          file lit || true
+
+          echo "=== FIRST 20 LINES OF LUVIT ==="
+          head -n 20 luvit || true
+
+          echo "=== FIRST 20 LINES OF LUVI ==="
+          head -n 20 luvi || true
+
+          echo "=== FIRST 20 LINES OF LIT ==="
+          head -n 20 lit || true
 
       - name: Decrypt bot code
         run: |
