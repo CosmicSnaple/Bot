@@ -17,9 +17,9 @@ jobs:
 
       - name: Download Luvit + Luvi + Lit (prebuilt)
         run: |
-          curl -L https://github.com/luvit/luvit/releases/latest/download/luvit -o luvit
-          curl -L https://github.com/luvit/luvi/releases/latest/download/luvi -o luvi
-          curl -L https://github.com/luvit/lit/releases/latest/download/lit -o lit
+          curl -L https://github.com/luvit/luvit/releases/latest/download/luvit-linux-amd64 -o luvit
+          curl -L https://github.com/luvit/luvi/releases/latest/download/luvi-linux-amd64 -o luvi
+          curl -L https://github.com/luvit/lit/releases/latest/download/lit-linux-amd64 -o lit
 
           chmod +x luvit
           chmod +x luvi
