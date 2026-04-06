@@ -17,7 +17,8 @@ jobs:
 
       - name: Install Luvit (stable GitHub mirror)
         run: |
-          curl -L https://github.com/luvit/luvi/releases/download/v2.21.0/luvi-regular-Linux_x86_64 -o luvi
+          curl -L https://github.com/luvit/luvi/releases/download/v2.21.0/luvi-regular-Linux_x86_64.zip -o luvi.zip
+          unzip luvi.zip
           chmod +x luvi
 
           curl -L https://github.com/luvit/lit/archive/refs/tags/3.8.5.zip -o lit.zip
