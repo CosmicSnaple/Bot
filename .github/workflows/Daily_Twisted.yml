@@ -15,31 +15,15 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Install Luvit (CI-safe)
+      - name: Download Luvit + Luvi + Lit (prebuilt)
         run: |
-          git clone https://github.com/luvit/luvi.git
+          curl -L https://github.com/luvit/luvit/releases/latest/download/luvit-linux64 -o luvit
+          curl -L https://github.com/luvit/luvi/releases/latest/download/luvi-linux64 -o luvi
+          curl -L https://github.com/luvit/lit/releases/latest/download/lit-linux64 -o lit
 
-          cd luvi
-          make regular
-          make
-          cd ..
-
-      - name: Download lit (official)
-        run: |
-          curl -L https://github.com/luvit/lit/raw/master/lit.lua -o lit.lua
-
-      - name: Debug luvi build output
-        run: |
-          echo "=== TOP LEVEL ==="
-          ls -l luvi/build
-
-      - name: Build Luvit
-        run: |
-          LUVI_PATH=$(find luvi/build -maxdepth 2 -type f -perm -111 | head -n 1)
-          echo "Using luvi executable: $LUVI_PATH"
-
-          $LUVI_PATH lit.lua make luvit
           chmod +x luvit
+          chmod +x luvi
+          chmod +x lit
 
       - name: Decrypt bot code
         run: |
