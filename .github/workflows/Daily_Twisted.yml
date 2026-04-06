@@ -15,9 +15,16 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Download Luvit (prebuilt)
+      - name: Install Luvit (stable GitHub mirror)
         run: |
-          curl -L https://github.com/luvit/luvit/releases/latest/download/luvit-regular-Linux_x86_64 -o luvit
+          curl -L https://github.com/luvit/luvi/releases/download/v2.21.0/luvi-regular-Linux_x86_64 -o luvi
+          chmod +x luvi
+
+          curl -L https://github.com/luvit/lit/archive/refs/tags/3.8.5.zip -o lit.zip
+          unzip lit.zip
+          mv lit-3.8.5 lit
+
+          ./luvi lit/make.lua make luvit
           chmod +x luvit
 
       - name: Decrypt bot code
