@@ -21,18 +21,32 @@ jobs:
           git clone https://github.com/luvit/lit.git
 
           cd luvi
-          make regular
+          make        # <-- correct target for this version
           cd ..
 
       - name: Debug luvi build output
         run: |
-          echo "Listing luvi/build directory:"
+          echo "=== TOP LEVEL ==="
+          ls -l luvi/build
+          echo "=== RECURSIVE ==="
           ls -R luvi/build
+
+      - name: Build Luvit
+        run: |
+          # Find the luvi executable dynamically
+          LUVI_PATH=$(find luvi/build -maxdepth 2 -type f -perm -111 | head -n 1)
+          echo "Using luvi executable: $LUVI_PATH"
+
+          $LUVI_PATH lit/make.lua make luvit
+          chmod +x luvit
 
       - name: Decrypt bot code
         run: |
-          openssl aes-256-cbc -d -pbkdf2 -in TwistedBot.lua.enc -out TwistedBot.lua -pass pass:"${{ secrets.BOT_KEY }}"
+          openssl aes-256-cbc -d -pbkdf2 \
+            -in TwistedBot.lua.enc \
+            -out TwistedBot.lua \
+            -pass pass:"${{ secrets.BOT_KEY }}"
 
       - name: Run Daily Twisted bot
         run: |
-          echo "We will update this once we know the luvi filename"
+          ./luvit TwistedBot.lua send
