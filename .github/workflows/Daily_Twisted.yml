@@ -15,17 +15,16 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Install Luvit (stable GitHub mirror)
+      - name: Install Luvit (CI-safe)
         run: |
-          curl -L https://github.com/luvit/luvi/releases/download/v2.21.0/luvi-regular-Linux_x86_64.zip -o luvi.zip
-          unzip luvi.zip
-          chmod +x luvi
+          git clone https://github.com/luvit/luvi.git
+          git clone https://github.com/luvit/lit.git
 
-          curl -L https://github.com/luvit/lit/archive/refs/tags/3.8.5.zip -o lit.zip
-          unzip lit.zip
-          mv lit-3.8.5 lit
+          cd luvi
+          make regular
+          cd ..
 
-          ./luvi lit/make.lua make luvit
+          ./luvi/build/luvi lit/make.lua make luvit
           chmod +x luvit
 
       - name: Decrypt bot code
