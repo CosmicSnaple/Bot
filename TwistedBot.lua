@@ -4,7 +4,7 @@ local url = require("url")
 local timer = require("timer")
 local json = require("json")
 
-local WEBHOOK_URL = "https://discord.com/api/webhooks/1483920733209104536/yBV-OVbrwXQWI61wJGTVn6hg_reTyME5UugFAB9-hkpNU2d-yt5U245IjHIfAP5KTmtk"
+local WEBHOOK_URL = "https://discord.com/api/webhooks/1482252401741271080/pVHcdjup7KcdLVdtqzDCMJx_6BLOnk4CwgKN1Bgr3gXRNAtymYe0FdTS8YPnDEVy675L"
 
 ---------------------------------------------------------------------
 -- Helper: Fetch wiki page HTML via Fandom API
